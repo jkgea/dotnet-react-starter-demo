@@ -1,17 +1,37 @@
 using System.Reflection;
+using Api.DTOs.Common;
 using Api.Extensions;
 using Api.Middleware;
+using Microsoft.AspNetCore.Mvc;
 
 var applicationBuilder = WebApplication.CreateBuilder(args);
 
 // Register application services
-applicationBuilder.Services.AddApplicationServices();
+applicationBuilder.Services.AddApplicationServices(applicationBuilder.Configuration);
 
 // Configure API controllers with JSON options
 applicationBuilder.Services.AddControllers()
     .AddJsonOptions(jsonOptions =>
     {
         jsonOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
+    })
+    .ConfigureApiBehaviorOptions(apiBehaviorOptions =>
+    {
+        apiBehaviorOptions.InvalidModelStateResponseFactory = actionContext =>
+            new BadRequestObjectResult(new ErrorResponseDto
+            {
+                Code = "ORG-VAL-001",
+                Message = "The request body is invalid.",
+                Details = actionContext.ModelState
+                    .Where(entry => entry.Value?.Errors.Count > 0)
+                    .SelectMany(entry => entry.Value!.Errors.Select(error => new ErrorDetailDto
+                    {
+                        Field = entry.Key.TrimStart('$', '.'),
+                        Message = string.IsNullOrWhiteSpace(error.ErrorMessage)
+                            ? "The supplied value is invalid."
+                            : error.ErrorMessage
+                    }))
+            });
     });
 
 // Configure Swagger/OpenAPI documentation

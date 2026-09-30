@@ -11,6 +11,10 @@ npm run dev
 
 Application runs at `http://localhost:5173`.
 
+Open `/preferences` to select a light or dark display theme and enable or
+disable email and in-app notification settings. Saving persists the choices
+through `PUT /v1/user-preferences`; the theme is applied across the application.
+
 ## Project Layout
 
 - `src/components/` - Reusable UI components
@@ -31,4 +35,5 @@ VITE_API_BASE_URL=http://localhost:5000
 - `npm run dev` - Start development server
 - `npm run build` - Production build
 - `npm run lint` - Run ESLint
+- `npm test -- --runInBand` - Run Jest and React Testing Library tests
 - `npm run preview` - Preview production build

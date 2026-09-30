@@ -39,6 +39,19 @@ export interface SystemHealthInfo {
   environment: string;
 }
 
+/** Supported application display themes */
+export type DisplayTheme = 'light' | 'dark';
+
+/** Display and notification preferences for the current user */
+export interface UserPreference {
+  displayTheme: DisplayTheme;
+  emailNotificationIndicator: boolean;
+  inAppNotificationIndicator: boolean;
+}
+
+/** Payload used to save preferences for the current user */
+export interface UpdateUserPreferenceRequest extends UserPreference {}
+
 /** Error response from API failures */
 export interface ApiErrorResponse {
   code: string;

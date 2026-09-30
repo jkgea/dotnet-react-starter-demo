@@ -8,7 +8,7 @@ A minimal full-stack application template for learning GitHub Copilot capabiliti
 
 - **Backend:** .NET 8 Web API with Entity Framework Core
 - **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS
-- **Testing:** xUnit + Moq (backend)
+- **Testing:** xUnit + Moq (backend), Jest + React Testing Library (frontend)
 
 This template is a companion to the [GitHub Copilot Customization Workshop](https://copilot-academy.github.io/workshops/copilot-customization). Please refer to the workshop materials for detailed instructions on how to configure and use GitHub Copilot agents, prompts, and skills in the context of this project.
 
@@ -51,10 +51,14 @@ npm run dev
 cd backend
 dotnet restore
 dotnet build
+dotnet tool restore
+dotnet tool run dotnet-ef database update --project src/Api --startup-project src/Api
 dotnet run --project src/Api
 ```
 
 The API will be available at `http://localhost:5000` with Swagger UI at `/swagger`.
+The default database connection targets a local SQL Server instance. Configure
+`ConnectionStrings__DefaultConnection` for your environment before applying the migration.
 
 ### Frontend
 
@@ -87,6 +91,8 @@ The frontend will be available at `http://localhost:5173`.
 | Method | Endpoint     | Description              |
 |--------|--------------|--------------------------|
 | GET    | /v1/health   | Health check endpoint    |
+| GET    | /v1/user-preferences | Get display and notification preferences |
+| PUT    | /v1/user-preferences | Save display and notification preferences |
 
 ## Development Standards
 

@@ -3,6 +3,12 @@
  * Handles request/response formatting and error handling.
  */
 
+import type {
+  SingleItemEnvelope,
+  UpdateUserPreferenceRequest,
+  UserPreference,
+} from './types';
+
 const BACKEND_SERVICE_URL = import.meta.env.VITE_API_BASE_URL || '';
 
 /**
@@ -53,4 +59,19 @@ export async function executeApiRequest<TResponse>(
 
   const parsedResponseData = await httpResponse.json();
   return parsedResponseData as TResponse;
+}
+
+/** Gets display and notification preferences for the current user. */
+export function getUserPreferences(): Promise<SingleItemEnvelope<UserPreference>> {
+  return executeApiRequest<SingleItemEnvelope<UserPreference>>('/v1/user-preferences');
+}
+
+/** Saves display and notification preferences for the current user. */
+export function updateUserPreferences(
+  preference: UpdateUserPreferenceRequest
+): Promise<SingleItemEnvelope<UserPreference>> {
+  return executeApiRequest<SingleItemEnvelope<UserPreference>>('/v1/user-preferences', {
+    method: 'PUT',
+    body: JSON.stringify(preference),
+  });
 }

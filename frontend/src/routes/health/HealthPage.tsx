@@ -72,7 +72,7 @@ export function SystemHealthPage() {
         System Health Status
       </h2>
 
-      <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
+      <div className="bg-[var(--color-surface)] rounded-lg shadow-md p-6 space-y-4">
         <div className="flex items-center gap-4">
           <span className="text-gray-600 font-medium w-32">Status:</span>
           <span className={`px-3 py-1 rounded-full border font-semibold ${statusColorClass}`}>
@@ -81,29 +81,29 @@ export function SystemHealthPage() {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-gray-600 font-medium w-32">Version:</span>
+          <span className="text-[var(--color-muted-text)] font-medium w-32">Version:</span>
           <span className="text-[var(--color-brand-text)]">{healthInfo.version}</span>
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-gray-600 font-medium w-32">Environment:</span>
+          <span className="text-[var(--color-muted-text)] font-medium w-32">Environment:</span>
           <span className="text-[var(--color-brand-text)]">{healthInfo.environment}</span>
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-gray-600 font-medium w-32">Checked At:</span>
+          <span className="text-[var(--color-muted-text)] font-medium w-32">Checked At:</span>
           <span className="text-[var(--color-brand-text)]">
             {new Date(healthInfo.checkedAtDate).toLocaleString()}
           </span>
         </div>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-4">
-        <h3 className="text-sm font-semibold text-gray-600 mb-2">Response Metadata</h3>
-        <p className="text-sm text-gray-500">
+      <div className="bg-[var(--color-surface-muted)] rounded-lg p-4">
+        <h3 className="text-sm font-semibold text-[var(--color-muted-text)] mb-2">Response Metadata</h3>
+        <p className="text-sm text-[var(--color-muted-text)]">
           <span className="font-medium">Transaction ID:</span> {metadata.transactionId}
         </p>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-[var(--color-muted-text)]">
           <span className="font-medium">Timestamp:</span> {metadata.timestamp}
         </p>
       </div>
